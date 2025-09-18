@@ -1,74 +1,38 @@
 import { expect } from "chai";
-import { createWalletClient, createPublicClient, http, parseUnits } from "viem";
-import { hardhat } from "viem/chains";
-import { before, describe, it } from "mocha";
-import { deployContract } from "viem";
-
-import SubscriptionManagerArtifact from "../artifacts/contracts/SubscriptionManager.sol/SubscriptionManager.json";
-import ERC20MockArtifact from "../artifacts/contracts/ERC20Mock.sol/ERC20Mock.json";
-
-let walletClient: ReturnType<typeof createWalletClient>;
-let publicClient: ReturnType<typeof createPublicClient>;
-let subManagerAddress: string;
-let usdcAddress: string;
+import { network } from "hardhat";
 
 describe("SubscriptionManager with Viem", () => {
-  before(async () => {
-    // Public client (local Hardhat node)
-    publicClient = createPublicClient({ chain: hardhat, transport: http() });
+  let publicClient: any;
+  let walletClient: any;
+  let subManager: any;
+  let usdc: any;
 
-    // Wallet client (first Hardhat account)
-    walletClient = createWalletClient({ chain: hardhat, transport: http() });
+  before(async () => {
+    const conn = await network.connect();
+    publicClient = await conn.viem.getPublicClient();
+    [walletClient] = await conn.viem.getWalletClients();
 
     // Deploy ERC20Mock (USDC)
-    const usdc = await deployContract(walletClient, {
-      abi: ERC20MockArtifact.abi,
-      bytecode: ERC20MockArtifact.bytecode,
-      account: walletClient.account,
-      args: ["USD Coin", "USDC", 6],
-    });
-    usdcAddress = usdc;
-
-    // Mint some tokens to the wallet
-    await walletClient.writeContract({
-      abi: ERC20MockArtifact.abi,
-      address: usdcAddress,
-      functionName: "mint",
-      args: [walletClient.account, parseUnits("100", 6)],
-    });
+    usdc = await conn.viem.deployContract("ERC20Mock", ["USD Coin", "USDC", 6]);
+    await usdc.write.mint([walletClient.account.address, 100_000_000n]); // 100 USDC with 6 decimals
 
     // Deploy SubscriptionManager
-    const subManager = await deployContract(walletClient, {
-      abi: SubscriptionManagerArtifact.abi,
-      bytecode: SubscriptionManagerArtifact.bytecode,
-    });
-    subManagerAddress = subManager;
+    subManager = await conn.viem.deployContract("SubscriptionManager");
   });
 
   it("should create a subscription", async () => {
-    // Approve SubscriptionManager to spend USDC
-    await walletClient.writeContract({
-      abi: ERC20MockArtifact.abi,
-      address: usdcAddress,
-      functionName: "approve",
-      args: [subManagerAddress, parseUnits("10", 6)],
-    });
+    await usdc.write.approve([subManager.address, 10_000_000n]); // 10 USDC
+    await subManager.write.createSubscription([
+      walletClient.account.address,
+      usdc.address,
+      10_000_000n,
+      30n * 24n * 60n * 60n,
+    ]);
 
-    // Create subscription
-    await walletClient.writeContract({
-      abi: SubscriptionManagerArtifact.abi,
-      address: subManagerAddress,
-      functionName: "createSubscription",
-      args: [walletClient.account, usdcAddress, parseUnits("10", 6), 30 * 24 * 60 * 60],
-    });
-
-    // Check subscription status
-    const active = await walletClient.readContract({
-      abi: SubscriptionManagerArtifact.abi,
-      address: subManagerAddress,
-      functionName: "isActive",
-      args: [walletClient.account, walletClient.account],
-    });
+    const active = await subManager.read.isActive([
+      walletClient.account.address,
+      walletClient.account.address,
+    ]);
 
     expect(active).to.equal(true);
   });

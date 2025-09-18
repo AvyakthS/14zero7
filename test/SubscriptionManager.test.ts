@@ -5,9 +5,9 @@ describe("SubscriptionManager", function () {
   it("should create and cancel a subscription", async () => {
     const [subscriber, creator] = await ethers.getSigners();
 
-    // Deploy mock ERC20
-    const ERC20 = await ethers.getContractFactory("ERC20PresetMinterPauser");
-    const usdc = await ERC20.deploy("USD Coin", "USDC");
+    // Deploy mock ERC20 (18 decimals to match parseUnits(..., 18))
+    const ERC20 = await ethers.getContractFactory("ERC20Mock");
+    const usdc = await ERC20.deploy("USD Coin", "USDC", 18);
     await usdc.waitForDeployment();
 
     // Mint to subscriber
