@@ -1,0 +1,133 @@
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(120deg, #8475e5 0%, #AAB5ED 100%);
+  position: relative;
+}
+
+/* Profile Icon Top-Right (absolute, not relative to container) */
+.profile-icon {
+  position: absolute;
+  top: 18px;
+  right: 30px;
+  background: rgba(255,255,255,0.34);
+  border-radius: 50%;
+  padding: 6px;
+  box-shadow: 0 2px 10px rgba(130,120,255,0.13);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  transition: box-shadow 0.25s;
+}
+
+.profile-icon img {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+/* Smaller Search Bar */
+.search-bar {
+  width: 340px;
+  margin: 36px auto 18px auto;
+  padding: 8px 22px;
+  border-radius: 18px;
+  border: none;
+  font-size: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(133,120,255,0.13);
+  color: #544e7bd0;
+  display: block;
+}
+
+/* Transaction List Container (smaller, centered) */
+.transaction-list {
+  max-width: 480px;
+  margin: 28px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  align-items: center;
+}
+
+/* Transaction Card smaller, still flexed */
+.transaction-card {
+  width: 350px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 12px rgba(133,120,255,0.13);
+  padding: 13px 18px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.transaction-field {
+  flex: 1 1 0;
+  padding: 0 3px;
+  display: flex;
+  flex-direction: column;
+}
+
+.transaction-label {
+  font-weight: 700;
+  color: #574bff;
+  font-size: 0.97rem;
+  margin-bottom: 2px;
+}
+
+.transaction-value {
+  font-weight: 500;
+  color: #444c6e;
+  font-size: 0.97rem;
+}
+
+/* Button smaller and neat */
+.view-payments-btn {
+  display: block;
+  width: 180px;
+  margin: 28px auto 0 auto;
+  padding: 9px 0;
+  background: linear-gradient(90deg, #54baf7 0%, #8e6ef8 100%);
+  color: #fff;
+  font-weight: 700;
+  border-radius: 7px;
+  border: none;
+  box-shadow: 0 4px 14px rgba(115,98,255,0.10);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.22s;
+}
+
+.view-payments-btn:hover {
+  background: linear-gradient(90deg, #8e6ef8 0%, #54baf7 100%);
+}
+
+/* Responsive Tweaks */
+@media (max-width: 520px) {
+  .transaction-card {
+    width: 96vw;
+    min-width: 0;
+    padding: 9px 2vw;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-icon {
+    right: 8px;
+    top: 9px;
+  }
+  .search-bar {
+    width: 90vw;
+    font-size: 0.95rem;
+    padding: 7px 11px;
+  }
+}
+
+
+

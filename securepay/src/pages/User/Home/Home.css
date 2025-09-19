@@ -1,0 +1,197 @@
+.home-user-container {
+  min-height: 100vh;
+  background: linear-gradient(120deg, #8475e5 0%, #aab5ed 100%);
+  font-family: 'Inter', sans-serif;
+  color: #333549;
+  padding: 0 12px 40px 12px;
+  position: relative;
+}
+
+/* Profile menu fixed to top right */
+.profile-menu {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+
+.profile-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.36);
+  box-shadow: 0 2px 13px rgba(123, 104, 255, 0.13);
+  padding: 6px;
+  transition: box-shadow 0.22s ease, background 0.2s;
+  cursor: pointer;
+  object-fit: cover;
+  display: block;
+}
+
+.profile-icon:hover {
+  box-shadow: 0 5px 22px rgba(123, 104, 255, 0.29);
+  background: rgba(255,255,255,0.49);
+}
+
+/* Dropdown menu appears just below icon */
+.dropdown-list {
+  position: absolute;
+  top: 58px;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+  background: #5a54d4;
+  border-radius: 12px;
+  box-shadow: 0 6px 28px rgb(123 104 255 / 25%);
+  min-width: 180px;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.dropdown-list li {
+  padding: 9px 22px;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+}
+
+.dropdown-list li:hover {
+  background-color: rgba(255, 255, 255, 0.13);
+}
+
+/* Other layout styles ... */
+.top-bar {
+  width: 100%;
+  max-width: 720px;
+  margin: 30px auto 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.search-bar input {
+  width: 350px;
+  height: 38px;
+  border-radius: 20px;
+  border: none;
+  padding: 11px 20px;
+  font-size: 1rem;
+  background: #fff;
+  box-shadow: 0 3px 12px rgb(133 120 255 / 17%);
+  color: #7a72c7;
+  outline: none;
+  transition: box-shadow 0.25s ease;
+}
+
+.search-bar input:focus {
+  box-shadow: 0 6px 20px rgb(123 104 255 / 45%);
+}
+
+/* Transactions list */
+.transactions-list {
+  max-width: 480px;
+  margin: 30px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* Transaction card styling */
+.transaction-item {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 2px 14px rgba(133, 120, 255, 0.15);
+  padding: 16px 20px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  gap: 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #4a4a75;
+  user-select: none;
+  transition: background-color 0.22s ease;
+}
+
+.transaction-item:hover {
+  background-color: #e8e8ff;
+}
+
+.transaction-item div {
+  flex: 1 1 0;
+}
+
+/* Buttons container and buttons styling */
+.subscribers-button-container,
+.subscriptions-button-container {
+  max-width: 480px;
+  margin: 16px auto 0 auto;
+  text-align: center;
+}
+
+.subscribers-button-container button,
+.subscriptions-button-container button {
+  width: 180px;
+  background: linear-gradient(90deg, #54baf7 0%, #8e6ef8 100%);
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: 700;
+  padding: 12px 0;
+  font-size: 1rem;
+  box-shadow: 0 6px 18px rgba(115, 98, 255, 0.2);
+  cursor: pointer;
+  transition: background 0.22s ease;
+  user-select: none;
+}
+
+.subscribers-button-container button:hover,
+.subscriptions-button-container button:hover {
+  background: linear-gradient(90deg, #8e6ef8 0%, #54baf7 100%);
+}
+
+/* Footer */
+.home-footer {
+  max-width: 480px;
+  margin: 46px auto 0 auto;
+  text-align: center;
+}
+
+.terms-link {
+  color: #564fcf;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.25s ease;
+}
+
+.terms-link:hover {
+  color: #7b68ff;
+}
+
+/* Responsive */
+@media (max-width: 570px) {
+  .search-bar input,
+  .subscribers-button-container button,
+  .subscriptions-button-container button,
+  .transactions-list,
+  .home-footer {
+    max-width: 95vw;
+    width: auto;
+  }
+  .profile-menu {
+    top: 12px;
+    right: 10px;
+  }
+  .transaction-item {
+    font-size: 0.9rem;
+  }
+}
+
