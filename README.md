@@ -32,9 +32,9 @@ This SubscriptionManager smart contract provides a robust, fully on-chain soluti
 
 * **Smart Contracts:** Solidity ^0.8.20  
 * **Development Environment:** Hardhat v3  
-* **Testing:** Mocha & Chai  
+* **Testing:** Node.js Test Runner
 * **Blockchain Interaction:** Ethers.js v6  
-* **Deployment:** Hardhat Ignition  
+* **Deployment:** Hardhat Ignition & .deploy script are both supported
 * **Dependencies:** OpenZeppelin Contracts, TypeScript
 
 ## **Project Structure**
@@ -47,7 +47,7 @@ This SubscriptionManager smart contract provides a robust, fully on-chain soluti
 │   └── modules/  
 │       └── SubscriptionManager.ts  \# Hardhat Ignition module for deployment.  
 ├── scripts/  
-│   └── deploy.ts                 \# Deployment script using Ignition.  
+│   └── deploy.ts                 \# Deployment script.  
 ├── test/  
 │   └── SubscriptionManager.test.ts \# Comprehensive test suite for the contract.  
 ├── .env.example                  \# Example environment file.  
